@@ -1,0 +1,25 @@
+# Simulation files
+*.vcd
+*.vvp
+*.out
+*.log
+
+# Build artifacts
+build/*.o
+build/*.exe
+build/cpu_sim
+
+# Waveform files
+*.ghw
+*.fst
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
