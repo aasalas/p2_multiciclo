@@ -1,36 +1,35 @@
-#Makefile con todo el flujo de trabajo para GOWIN. Utilizando iverilog y gtkwave
+# Makefile para simulación con iverilog y gtkwave
 
+# Directorios
+DESIGN_DIR = ../design
+SIM_DIR = ../sim
 
-#Nombre del proyecto... 
-PROYECT = Multiciclo 
+# Fuentes de diseño - solo los módulos independientes que no están incluidos
+SOURCES = $(DESIGN_DIR)/mux_2_1.sv \
+          $(DESIGN_DIR)/mux_3_1.sv
+SOURCES = $(wildcard ../design/*.v ../design/*.sv)
+# Fuente de simulación (testbench)
+TESTBENCH = $(SIM_DIR)/mux_2_1_tb.sv
 
-#Fuentes de diseno
-SOURCES := $(wildcard ../design/*.v ../design/*.sv) #Todas las fuentes .v o .sv que estan en design
+# Módulo top del testbench
+TOP_TB = mux_2_1_tb
 
+# Archivo de salida
+OUTPUT = sim_output.vcd
 
-#Fuente de simulacion
-#aca va el testbench que quieran simular
-TESTBENCH = ../sim/
+# Archivo VCD para visualización
+VCD_FILE = mux_2_1_tb.vcd
 
+.PHONY: all test wv clean
 
-#el top se indica sin la extension .v, esto hace referencia al nombre que le pusieron al módulo y no al archivo en si.
-TOP_DESIGN =
-TOP_TB     = 
+all: test wv
 
-#nombre del vcd que va a generar el tb
-VCD_FILE =
+test:
+	iverilog -g2005-sv -I../design -s $(TOP_TB) -o $(OUTPUT) $(SOURCES) $(TESTBENCH)
+	vvp $(OUTPUT)
 
+wv: $(VCD_FILE)
+	gtkwave $(VCD_FILE)
 
-all: test wv # testea y muestra la simulacion en gtkwave
-
-#Generar vcd con icarus verilog
-test: ${SOURCES} ${TESTBENCH}
-	@iverilog -o ${PROYECT}_test.o -s ${TOP_TB} -g2005-sv ${TESTBENCH} ${SOURCES}
-	@vvp ${PROYECT}_test.o 
-	
-#Visualizar los diagramas de tiempo con GTKWave
-wv: ${VCD_FILE}
-	gtkwave ${VCD_FILE} 
-        
-
-.PHONY:  wv
+clean:
+	rm -f $(OUTPUT) $(VCD_FILE)
