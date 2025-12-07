@@ -1,6 +1,6 @@
 module instr_mem(
     input logic clk, 
-    input logic [31:0] addr, 
+    input logic [31:0] pc, 
     output logic [31:0] instr
     );
     
@@ -11,7 +11,6 @@ module instr_mem(
     // We'll load program from testbench using hierarchical access
         for (int i=0;i<256;i++) mem[i]=32'h00000013; // NOP = ADDI x0,x0,0
     end
-    always_ff @(posedge clk) begin
-        instr <= mem[addr[9:2]]; // word aligned
-    end
+    // Lectura combinacional para evitar X iniciales en instr
+    always_comb instr = mem[pc[9:2]]; // word aligned
 endmodule

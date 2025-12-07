@@ -53,4 +53,9 @@ module mux_2_1_tb;
         $finish;
     end
 
+    initial begin
+        $dumpfile("mux_2_1_tb.vcd");
+        $dumpvars(0, mux_2_1_tb);
+    end
+
 endmodule
