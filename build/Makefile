@@ -7,18 +7,15 @@ SIM_DIR = ../sim
 # Fuentes de diseño - orden importante: primero los módulos base, luego los que los usan
 SOURCES = $(wildcard ../design/*.v ../design/*.sv)
 		
-#SOURCES = $(wildcard ../design/*.v ../design/*.sv)
-# Fuente de simulación (testbench)
-TESTBENCH = $(SIM_DIR)/TOPPipeline_tb.sv
-
-# Módulo top del testbench
-TOP_TB = TOPPipeline_tb
+# CAMBIAR SOLO EL NOMBRE DEL TESTBENCH
+test_name = lwHazardUnit_tb
+TESTBENCH = $(SIM_DIR)/$(test_name).sv # Fuente de simulación (testbench)
+TOP_TB = $(test_name) # Módulo top del testbench
+VCD_FILE = $(test_name).vcd # Archivo VCD para visualización
 
 # Archivo de salida
 OUTPUT = sim_output.o
 
-# Archivo VCD para visualización
-VCD_FILE = TOPPipeline_tb.vcd
 
 .PHONY: all test wv clean
 
