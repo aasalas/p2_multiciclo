@@ -40,7 +40,7 @@ module RegisterFile_tb #(parameter WIDTH=32, parameter ADDR_WIDTH=5) ();
   // Generación del reloj
   initial begin
     clk = 0;
-    forever #5 clk = ~clk; // Período de 10ns
+    forever #5 clk = ~clk; // Periodo de 10ns
   end
   
   // Inicialización
@@ -120,7 +120,7 @@ module RegisterFile_tb #(parameter WIDTH=32, parameter ADDR_WIDTH=5) ();
         end
         
         @(posedge clk);
-        #1; // Pequeño delay
+        #1; // Pequeno delay
       end
       
       RegWrite = 0; // Deshabilitar escritura
@@ -141,12 +141,12 @@ module RegisterFile_tb #(parameter WIDTH=32, parameter ADDR_WIDTH=5) ();
         // Verificar ReadData1
         if (i == 0) begin
           if (ReadData1 !== 32'h0) begin
-            $display("[ERROR] ReadData1 debería ser 0 cuando Rs1=0, pero es %h", ReadData1);
+            $display("[ERROR] ReadData1 deberia ser 0 cuando Rs1=0, pero es %h", ReadData1);
             error = error + 1;
           end
         end else begin
           if (ReadData1 !== reg_file_checker[i]) begin
-            $display("[ERROR] ReadData1 mismatch: Rs1=%d, Expected=%h, Got=%h", 
+                $display("[ERROR] ReadData1 mismatch: Rs1=%d, Expected=%h, Got=%h", 
                     i, reg_file_checker[i], ReadData1);
             error = error + 1;
           end
@@ -156,12 +156,12 @@ module RegisterFile_tb #(parameter WIDTH=32, parameter ADDR_WIDTH=5) ();
         if ((i + 1) < 32) begin
           if ((i + 1) == 0) begin
             if (ReadData2 !== 32'h0) begin
-              $display("[ERROR] ReadData2 debería ser 0 cuando Rs2=0, pero es %h", ReadData2);
+              $display("[ERROR] ReadData2 deberia ser 0 cuando Rs2=0, pero es %h", ReadData2);
               error = error + 1;
             end
           end else begin
             if (ReadData2 !== reg_file_checker[i + 1]) begin
-              $display("[ERROR] ReadData2 mismatch: Rs2=%d, Expected=%h, Got=%h", 
+                  $display("[ERROR] ReadData2 mismatch: Rs2=%d, Expected=%h, Got=%h", 
                       i + 1, reg_file_checker[i + 1], ReadData2);
               error = error + 1;
             end
@@ -191,7 +191,7 @@ module RegisterFile_tb #(parameter WIDTH=32, parameter ADDR_WIDTH=5) ();
       
       // Verificar que sigue siendo 0
       if (ReadData1 !== 32'h0) begin
-        $display("[ERROR] Registro x0 no es 0 después de intento de escritura: %h", ReadData1);
+        $display("[ERROR] Registro x0 no es 0 despues de intento de escritura: %h", ReadData1);
         error = error + 1;
       end
       
@@ -216,7 +216,7 @@ module RegisterFile_tb #(parameter WIDTH=32, parameter ADDR_WIDTH=5) ();
         reg_file_checker[i] = 0;
       end
       
-      // Verificar que todos los registros estén en 0
+      // Verificar que todos los registros esten en 0
       for (i = 0; i < 32; i = i + 1) begin
         @(negedge clk);
         Rs1 = i;
@@ -225,7 +225,7 @@ module RegisterFile_tb #(parameter WIDTH=32, parameter ADDR_WIDTH=5) ();
         #1;
         
         if (ReadData1 !== 32'h0) begin
-          $display("[ERROR] Registro %d no es 0 después del reset: %h", i, ReadData1);
+          $display("[ERROR] Registro %d no es 0 despues del reset: %h", i, ReadData1);
           error = error + 1;
         end
       end
@@ -235,7 +235,7 @@ module RegisterFile_tb #(parameter WIDTH=32, parameter ADDR_WIDTH=5) ();
   // Monitor para verificación continua
   always @(posedge clk) begin
     if (!rst && RegWrite && (Rd != 5'b00000)) begin
-      #1; // Pequeño delay para sincronización
+      #1; // Pequeno delay para sincronizacion
       reg_file_checker[Rd] = WriteData;
     end
   end
@@ -244,7 +244,7 @@ module RegisterFile_tb #(parameter WIDTH=32, parameter ADDR_WIDTH=5) ();
   initial begin
     #100000; // 100us timeout
     if (!finish_flag) begin
-      $display("[ERROR] Timeout - La simulación no terminó correctamente");
+      $display("[ERROR] Timeout - La simulacion no termino correctamente");
       $finish;
     end
   end
