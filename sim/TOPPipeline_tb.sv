@@ -2,17 +2,17 @@
 `timescale 1ns / 1ps
 
 module TOPPipeline_tb;
-    // Parámetros del testbench
+    // Parametros del testbench
     parameter WIDTH = 32;
     parameter DEPTH_IMEM = 64;
     parameter DEPTH_DMEM = 12;
     parameter PERIOD = 10; // 10ns = 100MHz
     
-    // Señales del testbench
+    // Senales del testbench
     logic clk;
     logic rst;
     
-    // Instanciación del DUT (Device Under Test)
+    // Instanciacion del DUT (Device Under Test)
     TOPPipeline #(
         .WIDTH(WIDTH),
         .DEPTH_IMEM(DEPTH_IMEM),
@@ -22,7 +22,7 @@ module TOPPipeline_tb;
         .rst(rst)
     );
     
-    // Generación del reloj
+    // Generacion del reloj
     initial begin
         clk = 0;
         forever #(PERIOD/2) clk = ~clk;
@@ -44,7 +44,7 @@ module TOPPipeline_tb;
     assign rs2 = current_instruction[24:20];
     assign func7 = current_instruction[31:25];
     
-    // Función para decodificar el nombre de la instrucción
+    // Funcion para decodificar el nombre de la instruccion
     function string get_instruction_name(logic [6:0] op, logic [2:0] f3, logic [6:0] f7);
         case (op)
             7'b0110011: begin // R-type
@@ -110,7 +110,7 @@ module TOPPipeline_tb;
         endcase
     endfunction
     
-    // Función para obtener nombre de operación ALU
+    // Funcion para obtener nombre de operacion ALU
     function string get_alu_op_name(logic [3:0] ctrl);
         case (ctrl)
             4'b0000: return "AND";
@@ -133,7 +133,7 @@ module TOPPipeline_tb;
         endcase
     endfunction
     
-    // Variables auxiliares para mostrar información
+    // Variables auxiliares para mostrar informacion
     string instruction_str;
     string mem_op_str;
     string wb_str;
@@ -143,14 +143,14 @@ module TOPPipeline_tb;
         if (!rst) begin
             $display("=== Ciclo %0d ===", ($time/PERIOD) - 2);
             
-            // Determinar el string de instrucción
+            // Determinar el string de instruccion
             if (current_instruction != 0) begin
                 instruction_str = get_instruction_name(opcode, func3, func7);
             end else begin
                 instruction_str = "NOP";
             end
             
-            // Determinar operación de memoria
+            // Determinar operacion de memoria
             if (dut.MemRead_MEM || dut.MemWrite_MEM) begin
                 if (dut.MemWrite_MEM) begin
                     mem_op_str = "WRITE";
@@ -168,7 +168,7 @@ module TOPPipeline_tb;
                 wb_str = "-----";
             end
             
-            // Mostrar todas las etapas en una línea
+            // Mostrar todas las etapas en una linea
             $display("IF: PC=0x%02h  ID: %s  EX: ALU=0x%08h  MEM: %s  WB: %s", 
                     dut.PC_current[7:0],
                     instruction_str,
@@ -177,7 +177,7 @@ module TOPPipeline_tb;
                     wb_str
             );
             
-            // Mostrar información adicional solo si es relevante
+            // Mostrar informacion adicional solo si es relevante
             if (dut.PCSrc) begin
                 $display("    BRANCH/JUMP: Next PC = 0x%08h", dut.PC_next);
             end
@@ -192,7 +192,7 @@ module TOPPipeline_tb;
         end
     end
     
-    // Variables para los bucles de visualización
+    // Variables para los bucles de visualizacion
     integer i;
     logic [31:0] reg_val;
     logic [31:0] instr;
@@ -205,7 +205,7 @@ module TOPPipeline_tb;
     // Secuencia principal de prueba
     initial begin
         $display("=== Iniciando testbench TOPPipeline ===");
-        $display("Parámetros: WIDTH=%0d, DEPTH_IMEM=%0d, DEPTH_DMEM=%0d", 
+        $display("Parametros: WIDTH=%0d, DEPTH_IMEM=%0d, DEPTH_DMEM=%0d", 
                 WIDTH, DEPTH_IMEM, DEPTH_DMEM);
         
         // Reset inicial
@@ -229,7 +229,7 @@ module TOPPipeline_tb;
         end
         
         $display("\n=== INSTRUCCIONES EN MEMORIA ===");
-        $display("Dirección | Instrucción | Decodificada");
+        $display("Direccion | Instruccion | Decodificada");
         $display("----------|-------------|-------------");
         for (i = 0; i < 12; i = i + 1) begin
             instr = dut.instruction_memory.Memory[i];
@@ -243,7 +243,7 @@ module TOPPipeline_tb;
         end
         
         $display("\n=== MEMORIA DE DATOS ===");
-        $display("Dirección | Valor (Hex) | Valor (Dec)");
+        $display("Direccion | Valor (Hex) | Valor (Dec)");
         $display("----------|-------------|------------");
         for (i = 0; i < 2**(DEPTH_DMEM-2); i = i + 1) begin
             word = {dut.data_memory.DataMem[i*4+3], 
@@ -262,7 +262,7 @@ module TOPPipeline_tb;
     // Timeout de seguridad
     initial begin
         #(PERIOD * 50);
-        $display("TIMEOUT: Testbench terminado por límite de tiempo");
+        $display("TIMEOUT: Testbench terminado por limite de tiempo");
         $finish;
     end
     

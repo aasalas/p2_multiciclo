@@ -60,7 +60,7 @@ module Control_tb#(parameter WIDTH = 32);
         input logic exp_unsigned_load
     );
         test_count++;
-        #1; // Pequeño delay para estabilización
+        #1; // Pequeno delay para estabilizacion
         
         if (RegWrite === exp_RegWrite &&
             ALUSrc === exp_ALUSrc &&
@@ -87,7 +87,7 @@ module Control_tb#(parameter WIDTH = 32);
     endtask
     
     initial begin
-        $display("=== Iniciando testbench para módulo Control ===");
+        $display("=== Iniciando testbench para modulo Control ===");
         $display("");
         
         // Test 1: R-type instructions (ADD, SUB, AND, OR, etc.)
@@ -170,23 +170,23 @@ module Control_tb#(parameter WIDTH = 32);
         func3 = 3'b000; // JALR
         verify_signals("JALR (Jump and Link Register)", 1'b1, 1'b1, 1'b0, 1'b0, 1'b0, 1'b0, 1'b1, 2'b00, 1'b0, 1'b0, 1'b0, 1'b0);
         
-        // Test 10: Opcode inválido (debe mantener valores por defecto)
-        $display("--- Probando opcode inválido ---");
+        // Test 10: Opcode invalido (debe mantener valores por defecto)
+        $display("--- Probando opcode invalido ---");
         opcode = 7'b1111111;
         func3 = 3'b000;
-        verify_signals("Opcode inválido", 1'b0, 1'b0, 1'b0, 1'b0, 1'b0, 1'b0, 1'b0, 2'b00, 1'b0, 1'b0, 1'b0, 1'b0);
+        verify_signals("Opcode invalido", 1'b0, 1'b0, 1'b0, 1'b0, 1'b0, 1'b0, 1'b0, 2'b00, 1'b0, 1'b0, 1'b0, 1'b0);
         
-        // Test 11: func3 inválido para Load (debe usar default LW)
-        $display("--- Probando func3 inválido en Load ---");
+        // Test 11: func3 invalido para Load (debe usar default LW)
+        $display("--- Probando func3 invalido en Load ---");
         opcode = 7'b0000011;
-        func3 = 3'b111; // func3 inválido
-        verify_signals("Load con func3 inválido (default LW)", 1'b1, 1'b1, 1'b1, 1'b0, 1'b1, 1'b0, 1'b0, 2'b00, 1'b0, 1'b0, 1'b1, 1'b0);
+        func3 = 3'b111; // func3 invalido
+        verify_signals("Load con func3 invalido (default LW)", 1'b1, 1'b1, 1'b1, 1'b0, 1'b1, 1'b0, 1'b0, 2'b00, 1'b0, 1'b0, 1'b1, 1'b0);
         
-        // Test 12: func3 inválido para Store (debe usar default SW)
-        $display("--- Probando func3 inválido en Store ---");
+        // Test 12: func3 invalido para Store (debe usar default SW)
+        $display("--- Probando func3 invalido en Store ---");
         opcode = 7'b0100011;
-        func3 = 3'b111; // func3 inválido
-        verify_signals("Store con func3 inválido (default SW)", 1'b0, 1'b1, 1'b0, 1'b1, 1'b0, 1'b0, 1'b0, 2'b00, 1'b0, 1'b0, 1'b1, 1'b0);
+        func3 = 3'b111; // func3 invalido
+        verify_signals("Store con func3 invalido (default SW)", 1'b0, 1'b1, 1'b0, 1'b1, 1'b0, 1'b0, 1'b0, 2'b00, 1'b0, 1'b0, 1'b1, 1'b0);
         
         // Mostrar resumen final
         $display("");
@@ -196,9 +196,9 @@ module Control_tb#(parameter WIDTH = 32);
         $display("Pruebas fallidas: %0d", fail_count);
         
         if (fail_count == 0) begin
-            $display(" ¡TODAS LAS PRUEBAS PASARON!");
+            $display(" TODAS LAS PRUEBAS PASARON!");
         end else begin
-            $display("  Algunas pruebas fallaron. Revisar implementación.");
+            $display("  Algunas pruebas fallaron. Revisar implementacion.");
         end
         
         $display("");

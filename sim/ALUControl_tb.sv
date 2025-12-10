@@ -2,15 +2,15 @@
 
 module ALUControl_tb;
 
-    // Señales de entrada
+    // Senales de entrada
     logic [1:0] ALUOp;
     logic [2:0] func3;
     logic [6:0] func7;
     
-    // Señal de salida
+    // Senal de salida
     logic [3:0] ALUCtrl;
     
-    // Instanciar el módulo bajo prueba
+    // Instanciar el modulo bajo prueba
     ALUControl uut (
         .ALUOp(ALUOp),
         .func3(func3),
@@ -18,7 +18,7 @@ module ALUControl_tb;
         .ALUCtrl(ALUCtrl)
     );
     
-    // Variables para verificación
+    // Variables para verificacion
     int test_count = 0;
     int pass_count = 0;
     int fail_count = 0;
@@ -29,7 +29,7 @@ module ALUControl_tb;
         input logic [3:0] expected_ctrl
     );
         test_count++;
-        #1; // Pequeño delay para estabilización
+        #1; // Pequeno delay para estabilizacion
         
         if (ALUCtrl === expected_ctrl) begin
             $display("✓ PASS: %s - ALUCtrl = %b", test_name, ALUCtrl);
@@ -43,7 +43,7 @@ module ALUControl_tb;
     endtask
     
     initial begin
-        $display("=== Iniciando testbench para módulo ALUControl ===");
+        $display("=== Iniciando testbench para modulo ALUControl ===");
         $display("");
         
         // Test ALUOp = 00 (Load/Store/LUI/AUIPC/JAL/JALR)
@@ -75,8 +75,8 @@ module ALUControl_tb;
         func3 = 3'b111; // BGEU
         verify_alucontrol("BGEU", 4'b0111);
         
-        func3 = 3'b010; // func3 inválido para branch
-        verify_alucontrol("Branch inválido (default BEQ)", 4'b1100);
+        func3 = 3'b010; // func3 invalido para branch
+        verify_alucontrol("Branch invalido (default BEQ)", 4'b1100);
         
         // Test ALUOp = 10 (R-type instructions)
         $display("--- Probando ALUOp = 10 (R-type operations) ---");
@@ -173,23 +173,23 @@ module ALUControl_tb;
         // Test casos edge
         $display("--- Probando casos edge ---");
         
-        // ALUOp inválido
-        ALUOp = 2'b00; // Reset a valor válido primero
+        // ALUOp invalido
+        ALUOp = 2'b00; // Reset a valor valido primero
         #1;
-        ALUOp = 2'bxx; // Valor inválido
+        ALUOp = 2'bxx; // Valor invalido
         func3 = 3'b000;
         func7 = 7'b0000000;
-        verify_alucontrol("ALUOp inválido", 4'b0010); // Default ADD
+        verify_alucontrol("ALUOp invalido", 4'b0010); // Default ADD
         
-        // func3 inválido para R-type
+        // func3 invalido para R-type
         ALUOp = 2'b10;
         func3 = 3'bxxx;
-        verify_alucontrol("R-type func3 inválido", 4'b0010); // Default ADD
+        verify_alucontrol("R-type func3 invalido", 4'b0010); // Default ADD
         
-        // func3 inválido para I-type
+        // func3 invalido para I-type
         ALUOp = 2'b11;
         func3 = 3'bxxx;
-        verify_alucontrol("I-type func3 inválido", 4'b0010); // Default ADD
+        verify_alucontrol("I-type func3 invalido", 4'b0010); // Default ADD
         
         // Mostrar resumen final
         $display("");
@@ -199,7 +199,7 @@ module ALUControl_tb;
         $display("Pruebas fallidas: %0d", fail_count);
         
         if (fail_count == 0) begin
-            $display(" ¡TODAS LAS PRUEBAS DE ALUControl PASARON!");
+            $display(" TODAS LAS PRUEBAS DE ALUControl PASARON!");
         end else begin
             $display("  Algunas pruebas de ALUControl fallaron.");
         end

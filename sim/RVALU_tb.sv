@@ -125,13 +125,13 @@ module RVALU_tb#(parameter WIDTH=32);
         $display("==========================================\n");
         
         // Test 1: Operaciones lógicas básicas
-        $display("--- Test 1: Operaciones Lógicas ---");
+        $display("--- Test 1: Operaciones Logicas ---");
         test_operation(32'hAAAA5555, 32'h5555AAAA, 4'b0000, "AND");
         test_operation(32'hAAAA5555, 32'h5555AAAA, 4'b0001, "OR");
         test_operation(32'h12345678, 32'h87654321, 4'b1001, "XOR");
         
         // Test 2: Operaciones aritméticas
-        $display("--- Test 2: Operaciones Aritméticas ---");
+        $display("--- Test 2: Operaciones Aritmeticas ---");
         test_operation(32'd100, 32'd50, 4'b0010, "ADD positivos");
         test_operation(32'd100, 32'd150, 4'b0110, "SUB (100-150)");
         test_operation(-32'd50, 32'd25, 4'b0010, "ADD con negativo");
@@ -179,12 +179,12 @@ module RVALU_tb#(parameter WIDTH=32);
         test_operation(32'h80000000, 32'd31, 4'b1011, "SRA máximo shift");
         
         // Test 8: Operación default
-        $display("--- Test 8: Operación Default ---");
+        $display("--- Test 8: Operacion Default ---");
         test_operation(32'd10, 32'd20, 4'b0001, "OR operation"); // Test normal
 
         
         // Test 9: Test del flag Zero
-        $display("--- Test 9: Verificación Flag Zero ---");
+        $display("--- Test 9: Verificacion Flag Zero ---");
         test_operation(32'd0, 32'd0, 4'b0000, "AND que resulta en 0");
         test_operation(32'hFFFF0000, 32'h0000FFFF, 4'b0000, "AND que resulta en 0");
         test_operation(32'd50, 32'd50, 4'b0110, "SUB que resulta en 0");
@@ -195,12 +195,12 @@ module RVALU_tb#(parameter WIDTH=32);
         $display("Total de tests: %d", test_count);
         $display("Tests exitosos: %d", pass_count);
         $display("Tests fallidos: %d", fail_count);
-        $display("Porcentaje de éxito: %.2f%%", (real'(pass_count) / real'(test_count)) * 100.0);
+        $display("Porcentaje de exito: %.2f%%", (real'(pass_count) / real'(test_count)) * 100.0);
         
         if (fail_count == 0) begin
-            $display(" ¡TODOS LOS TESTS PASARON! 🎉");
+            $display(" TODOS LOS TESTS PASARON!");
         end else begin
-            $display("  Algunos tests fallaron. Revisar implementación.");
+            $display("  Algunos tests fallaron. Revisar implementacion.");
         end
         
         $display("==========================================");

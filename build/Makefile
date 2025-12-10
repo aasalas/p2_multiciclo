@@ -5,24 +5,17 @@ DESIGN_DIR = ../design
 SIM_DIR = ../sim
 
 # Fuentes de diseño - orden importante: primero los módulos base, luego los que los usan
-SOURCES = $(DESIGN_DIR)/mux_2_1.sv \
-          $(DESIGN_DIR)/mux_3_1.sv \
-          $(DESIGN_DIR)/instr_mem.sv \
-          $(DESIGN_DIR)/pc.sv \
-          $(DESIGN_DIR)/TOP_IF.sv
+SOURCES = $(wildcard ../design/*.v ../design/*.sv)
 		
-#SOURCES = $(wildcard ../design/*.v ../design/*.sv)
-# Fuente de simulación (testbench)
-TESTBENCH = $(SIM_DIR)/IF_tb.sv
-
-# Módulo top del testbench
-TOP_TB = IF_tb
+# CAMBIAR SOLO EL NOMBRE DEL TESTBENCH
+test_name = TOPPipeline_tb
+TESTBENCH = $(SIM_DIR)/$(test_name).sv # Fuente de simulación (testbench)
+TOP_TB = $(test_name) # Módulo top del testbench
+VCD_FILE = $(test_name).vcd # Archivo VCD para visualización
 
 # Archivo de salida
 OUTPUT = sim_output.o
 
-# Archivo VCD para visualización
-VCD_FILE = IF_tb.vcd
 
 .PHONY: all test wv clean
 
