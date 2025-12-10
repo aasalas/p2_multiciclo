@@ -8,7 +8,7 @@ SIM_DIR = ../sim
 SOURCES = $(wildcard ../design/*.v ../design/*.sv)
 		
 # CAMBIAR SOLO EL NOMBRE DEL TESTBENCH
-test_name = lwHazardUnit_tb
+test_name = TOPPipeline_tb
 TESTBENCH = $(SIM_DIR)/$(test_name).sv # Fuente de simulación (testbench)
 TOP_TB = $(test_name) # Módulo top del testbench
 VCD_FILE = $(test_name).vcd # Archivo VCD para visualización
