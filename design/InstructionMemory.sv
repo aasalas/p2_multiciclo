@@ -20,17 +20,18 @@ module InstructionMemoryF #(parameter WIDTH=32, parameter DEPTH=64) (
     // Inicialización desde archivo
     initial begin
 
-//$readmemh("hazard_raw1.mem", Memory); 
+$readmemh("hazard_raw1.mem", Memory); 
 // Forwarding desde etapa EX (resultado de ALU se envia a siguiente instrucción)
-// lw x4, 0(x0)        # x4 = Mem[0] (carga en MEM)
-// add x5, x4, x0      # x5 = x4 + 0 (usa x4 inmediatamente - STALL!)
-// nop
+// addi x1, x0, 10     # x1 = 10
+// add x2, x1, x5      # x2 = x1 + x5 (RAW hazard: x1 se usa inmediatamente)
+// add x3, x2, x0      # x3 = x2 + 0
 
-$readmemh("hazard_raw2.mem", Memory); 
+//$readmemh("hazard_raw2.mem", Memory); 
 // Forwarding desde etapa MEM (datos de memoria se reutilizan)
+// addi x6, x0, 1      # x6 = 1
 // sw x6, 0(x0)        # Mem[0] = x6
 // lw x7, 0(x0)        # x7 = Mem[0] (lee lo que acaba de escribir)
-// add x8, x7, x0      # x8 = x7 + 0
+
 
 //$readmemh("hazard_load_use.mem", Memory);
 // Load-Use hazard requiere 1 ciclo de stall porque el dato no está listo en EX
@@ -38,7 +39,7 @@ $readmemh("hazard_raw2.mem", Memory);
 // add x5, x4, x0      # x5 = x4 + 0 (usa x4 inmediatamente - STALL!)
 // nop                 # (instrucción de relleno)
 
-// $readmemh("hazard_control.mem", Memory);
+//$readmemh("hazard_control.mem", Memory);
 //  Control hazard con salto. Las instrucciones en IF/ID se descartan (flush)
 // addi x9, x0, 5      # x9 = 5
 // beq x9, x9, salto       # if (x9 == x9) PC += 4 (BRANCH TOMADO - FLUSH!)
