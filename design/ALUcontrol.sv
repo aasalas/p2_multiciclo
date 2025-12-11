@@ -86,13 +86,4 @@ module ALUControl (
         endcase
     end
 
-    // Verificación en simulación (no sintetiza)
-    // synthesis translate_off
-    always_comb begin
-        if (ALUOp == ALUOP_ITYPE && func3 == 3'b000 && is_sub_or_sra) begin
-            $warning("Time=%0t: func7=0x20 con ADDI (I-type) - func7 debería ser 0 para ADDI", $time);
-        end
-    end
-    // synthesis translate_on
-
 endmodule

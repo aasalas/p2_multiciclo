@@ -27,7 +27,7 @@ module RVALU #(parameter WIDTH = 32) (
     logic             comp_branch;
 
     always_comb begin
-        unique case (ALUCtrl)
+        case (ALUCtrl)
             // Aritmética
             AND:  result_alu = a & b;
             OR:   result_alu = a | b;
@@ -58,7 +58,7 @@ module RVALU #(parameter WIDTH = 32) (
 
     // Lógica de comparación para branches
     always_comb begin
-        unique case (ALUCtrl)
+        case (ALUCtrl)
             BEQ:  comp_branch = ($signed(a) == $signed(b));
             BNE:  comp_branch = ($signed(a) != $signed(b));
             BLT:  comp_branch = ($signed(a) < $signed(b));

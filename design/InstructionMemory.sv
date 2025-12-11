@@ -26,7 +26,7 @@ module InstructionMemoryF #(parameter WIDTH=32, parameter DEPTH=64) (
 // add x5, x4, x0      # x5 = x4 + 0 (usa x4 inmediatamente - STALL!)
 // nop
 
-//$readmemh("hazard_raw2.mem", Memory); 
+$readmemh("hazard_raw2.mem", Memory); 
 // Forwarding desde etapa MEM (datos de memoria se reutilizan)
 // sw x6, 0(x0)        # Mem[0] = x6
 // lw x7, 0(x0)        # x7 = Mem[0] (lee lo que acaba de escribir)
